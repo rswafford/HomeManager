@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HomeManager.Domain.Entities.Core;
 
 namespace HomeManager.Domain.Entities

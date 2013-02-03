@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace HomeManager.Domain.Services
+namespace HomeManager.Domain.Services.Crypto
 {
     public class CryptoService : ICryptoService
     {

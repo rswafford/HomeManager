@@ -5,8 +5,9 @@ using System.Security.Principal;
 using HomeManager.Domain.Entities;
 using HomeManager.Domain.Entities.Core;
 using HomeManager.Domain.Entities.Extensions;
+using HomeManager.Domain.Services.Crypto;
 
-namespace HomeManager.Domain.Services
+namespace HomeManager.Domain.Services.Membership
 {
     public class MembershipService : IMembershipService
     {
@@ -51,12 +52,12 @@ namespace HomeManager.Domain.Services
 
         public OperationResult<UserWithRoles> CreateUser(string username, string email, string password)
         {
-            return CreateUser(username, password, email, roles: null);
+            return CreateUser(username, email, password, roles: null);
         }
 
         public OperationResult<UserWithRoles> CreateUser(string username, string email, string password, string role)
         {
-            return CreateUser(username, password, email, new[] { role });
+            return CreateUser(username, email, password, new[] { role });
         }
 
         public OperationResult<UserWithRoles> CreateUser(string username, string email, string password, string[] roles)
@@ -73,6 +74,7 @@ namespace HomeManager.Domain.Services
 
             var user = new User
                 {
+                    Key = Guid.NewGuid(),
                     Name = username,
                     Salt = passwordSalt,
                     Email = email,

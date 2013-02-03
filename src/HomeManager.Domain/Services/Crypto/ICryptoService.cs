@@ -1,4 +1,4 @@
-﻿namespace HomeManager.Domain.Services
+﻿namespace HomeManager.Domain.Services.Crypto
 {
     public interface ICryptoService
     {

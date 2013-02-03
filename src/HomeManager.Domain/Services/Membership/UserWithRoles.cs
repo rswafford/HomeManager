@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HomeManager.Domain.Entities;
 
-namespace HomeManager.Domain.Services
+namespace HomeManager.Domain.Services.Membership
 {
     public class UserWithRoles
     {

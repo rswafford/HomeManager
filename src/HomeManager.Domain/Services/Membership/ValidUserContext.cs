@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace HomeManager.Domain.Services
+namespace HomeManager.Domain.Services.Membership
 {
     public class ValidUserContext
     {

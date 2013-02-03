@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using HomeManager.Domain.Entities;
 using HomeManager.Domain.Entities.Core;
 
-namespace HomeManager.Domain.Services
+namespace HomeManager.Domain.Services.Membership
 {
     public interface IMembershipService
     {
