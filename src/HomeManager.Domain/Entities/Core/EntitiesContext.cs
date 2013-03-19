@@ -27,7 +27,16 @@ namespace HomeManager.Domain.Entities.Core {
         public IDbSet<MovieInGenre> MovieInGenres { get; set; }
         public IDbSet<MovieFormat> MovieFormats { get; set; }
 
+        // TV Show Entities
+        public IDbSet<TvShow> TvShows { get; set; }
+        public IDbSet<TvEpisode> TvEpisodes { get; set; } 
+
         // Image Entities
         public IDbSet<Image> Images { get; set; }
+
+        // User Media Items
+        public IDbSet<UserMovie> UserMovies { get; set; }
+        public IDbSet<UserTvEpisode> UserTvEpisodes { get; set; }
+        public IDbSet<UserImage> UserImages { get; set; } 
     }
 }

@@ -1,26 +1,30 @@
 ﻿using System;
+using System.Linq;
 using HomeManager.Domain.Entities.Core;
 using HomeManager.Domain.Entities.Extensions;
 using HomeManager.Domain.Entities.Media;
 
 namespace HomeManager.Domain.Services.Media
 {
-    public class MediaService : IMediaService
+    public class MovieService : IMovieService
     {
         private readonly IEntityRepository<Movie> _movieRepository;
         private readonly IEntityRepository<MovieGenre> _movieGenreRepository;
         private readonly IEntityRepository<MovieFormat> _movieFormatRepository;
         private readonly IEntityRepository<MovieInGenre> _movieInGenreRepository;
+        private readonly IEntityRepository<UserMovie> _userMovieRepository;
 
-        public MediaService(IEntityRepository<Movie> movieRepository,
+        public MovieService(IEntityRepository<Movie> movieRepository,
             IEntityRepository<MovieGenre> movieGenreRepository,
             IEntityRepository<MovieFormat> movieFormatRepository,
-            IEntityRepository<MovieInGenre> movieInGenreRepository)
+            IEntityRepository<MovieInGenre> movieInGenreRepository, 
+            IEntityRepository<UserMovie> userMovieRepository)
         {
             _movieRepository = movieRepository;
             _movieGenreRepository = movieGenreRepository;
             _movieFormatRepository = movieFormatRepository;
             _movieInGenreRepository = movieInGenreRepository;
+            _userMovieRepository = userMovieRepository;
         }
 
         public PaginatedList<MovieGenre> GetMovieGenres(int pageIndex, int pageSize)
@@ -107,7 +111,7 @@ namespace HomeManager.Domain.Services.Media
 
         public PaginatedList<Movie> GetMovies(int pageIndex, int pageSize, Guid ownerKey)
         {
-            return _movieRepository.Paginate(pageIndex, pageSize, x => x.Title, y => y.OwnerKey == ownerKey);
+            return _movieRepository.Paginate(pageIndex, pageSize, x => x.Title, y => y.UserMovies.Any(m => m.Owner.Key == ownerKey));
         }
 
         public PaginatedList<Movie> SearchMovies(int pageIndex, int pageSize, string searchTerm)
@@ -125,9 +129,18 @@ namespace HomeManager.Domain.Services.Media
             return _movieRepository.GetSingle(key);
         }
 
+        public Movie GetMovie(string thumbprint)
+        {
+            var movies = _movieRepository.FindBy(m => m.FileHash == thumbprint);
+            if (!movies.Any())
+                return null;
+
+            return movies.First();
+        }
+
         public OperationResult<Movie> AddMovie(Movie movie)
         {
-            if(_movieRepository.FindMovieByOwner(movie) != null)
+            if(_movieRepository.FindBy(m => m.FileHash == movie.FileHash).Any())
             {
                 return new OperationResult<Movie>(false);
             }
@@ -145,6 +158,20 @@ namespace HomeManager.Domain.Services.Media
             _movieRepository.Save();
 
             return movie;
+        }
+
+        public OperationResult<UserMovie> AddUserMovie(UserMovie userMovie)
+        {
+            if(_userMovieRepository.FindBy(m => m.OwnerKey == userMovie.OwnerKey && m.MovieKey == userMovie.MovieKey).Any())
+            {
+                return new OperationResult<UserMovie>(false);
+            }
+
+            userMovie.Key = Guid.NewGuid();
+            _userMovieRepository.Add(userMovie);
+            _userMovieRepository.Save();
+
+            return new OperationResult<UserMovie>(true) {Entity = userMovie};
         }
     }
 }

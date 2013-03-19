@@ -10,11 +10,12 @@ namespace HomeManager.Domain.Entities.Extensions
 {
     public static class MovieRepositoryExtensions
     {
-        public static Movie FindMovieByOwner(this IEntityRepository<Movie> movieRepository, Movie movie)
+        public static Movie FindMovieByOwner(this IEntityRepository<Movie> movieRepository, Movie movie, Guid ownerKey)
         {
-            var matches = movieRepository.FindBy(search =>
-                                                   search.OwnerKey == movie.OwnerKey &&
-                                                   search.FullPath == movie.FullPath);
+            var userMovies = movieRepository.FindBy(m => m.UserMovies.Any(u => u.OwnerKey == ownerKey));
+            
+            var matches = userMovies.Where(um => um.FileHash == movie.FileHash);
+
             return matches.FirstOrDefault();
         }
 
@@ -23,7 +24,6 @@ namespace HomeManager.Domain.Entities.Extensions
             return movieRepository.Paginate(pageIndex, pageSize, x => x.Title,
                                             movie =>
                                             movie.Title.Contains(searchString) || 
-                                            movie.Filename.Contains(searchString) || 
                                             movie.Year.Equals(searchString));
         }
 
@@ -31,9 +31,8 @@ namespace HomeManager.Domain.Entities.Extensions
         {
             return movieRepository.Paginate(pageIndex, pageSize, x => x.Title,
                                             movie =>
-                                            movie.OwnerKey == ownerKey &&
+                                            movie.UserMovies.Any(u => u.OwnerKey == ownerKey) &&
                                             (movie.Title.Contains(searchString) ||
-                                             movie.Filename.Contains(searchString) ||
                                              movie.Year.Equals(searchString)));
         }
     }

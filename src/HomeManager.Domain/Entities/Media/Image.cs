@@ -14,5 +14,12 @@ namespace HomeManager.Domain.Entities.Media
 
         public string Description { get; set; }
         public DateTime DateTaken { get; set; }
+
+        public virtual ICollection<UserImage> UserImages { get; set; }
+
+        public Image() : base()
+        {
+            UserImages = new HashSet<UserImage>();
+        }
     }
 }

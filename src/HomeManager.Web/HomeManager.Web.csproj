@@ -133,6 +133,18 @@
     <Reference Include="WebApiContrib.IoC.StructureMap">
       <HintPath>..\..\packages\WebApiContrib.IoC.StructureMap.0.9.4\lib\net40\WebApiContrib.IoC.StructureMap.dll</HintPath>
     </Reference>
+    <Reference Include="WebApiDoodle.Net.Http">
+      <HintPath>..\..\packages\WebApiDoodle.Net.Http.2.0.1\lib\net40\WebApiDoodle.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApiDoodle.Net.Http.Formatting">
+      <HintPath>..\..\packages\WebApiDoodle.Net.Http.Formatting.2.0.1\lib\net40\WebApiDoodle.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApiDoodle.Web">
+      <HintPath>..\..\packages\WebApiDoodle.Web.2.0.1\lib\net40\WebApiDoodle.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApiDoodle.Web.Meta">
+      <HintPath>..\..\packages\WebApiDoodle.Web.Meta.2.0.1\lib\net40\WebApiDoodle.Web.Meta.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -189,14 +201,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieImportController.cs" />
+    <Compile Include="Controllers\TvImportController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Filters\EmptyParameterFilterAttribute.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\HomeManagerAuthHandler.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -319,13 +334,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HomeManager.Model\HomeManager.Model.csproj">
-      <Project>{97e436fa-fdfb-4947-9266-fc55b2d9ea36}</Project>
-      <Name>HomeManager.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HomeManager.Domain\HomeManager.Domain.csproj">
       <Project>{c4bd5919-ecde-4a45-be9a-f3cb4d30be09}</Project>
       <Name>HomeManager.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeManager.Model\HomeManager.Model.csproj">
+      <Project>{97E436FA-FDFB-4947-9266-FC55B2D9EA36}</Project>
+      <Name>HomeManager.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

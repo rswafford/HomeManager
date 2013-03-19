@@ -44,16 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\MovieDto.cs" />
+    <Compile Include="Dtos\TvEpisodeDto.cs" />
     <Compile Include="Profiles\MovieProfile.cs" />
+    <Compile Include="Profiles\TvProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestModels\MovieImportRequestModel.cs" />
+    <Compile Include="RequestModels\TvShowImportRequestModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\HomeManager.Domain\HomeManager.Domain.csproj">
+    <ProjectReference Include="..\HomeManager.Domain\HomeManager.Domain.csproj">
       <Project>{C4BD5919-ECDE-4A45-BE9A-F3CB4D30BE09}</Project>
       <Name>HomeManager.Domain</Name>
     </ProjectReference>

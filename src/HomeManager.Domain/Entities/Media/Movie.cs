@@ -25,14 +25,13 @@ namespace HomeManager.Domain.Entities.Media
         public Guid? FormatKey { get; set; }
         public MovieFormat Format { get; set; }
 
-        [MaxLength(30)]
-        public string ImportedFormatString { get; set; }
-
         public virtual ICollection<MovieInGenre> MovieInGenres { get; set; }
+        public virtual ICollection<UserMovie> UserMovies { get; set; }
 
-        public Movie()
+        public Movie() : base()
         {
             MovieInGenres = new HashSet<MovieInGenre>();
+            UserMovies = new HashSet<UserMovie>();
         }
     }
 }

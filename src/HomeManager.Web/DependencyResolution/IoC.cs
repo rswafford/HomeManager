@@ -47,6 +47,12 @@ namespace HomeManager.Web.DependencyResolution {
                             x.For<IEntityRepository<MovieGenre>>().Use<EntityRepository<MovieGenre>>();
                             x.For<IEntityRepository<MovieInGenre>>().Use<EntityRepository<MovieInGenre>>();
 
+                            x.For<IEntityRepository<TvEpisode>>().Use<EntityRepository<TvEpisode>>();
+                            x.For<IEntityRepository<TvShow>>().Use<EntityRepository<TvShow>>();
+
+                            x.For<IEntityRepository<UserTvEpisode>>().Use<EntityRepository<UserTvEpisode>>();
+                            x.For<IEntityRepository<UserMovie>>().Use<EntityRepository<UserMovie>>();
+
                         });
             return ObjectFactory.Container;
         }

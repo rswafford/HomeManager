@@ -8,7 +8,7 @@ using HomeManager.Domain.Entities.Media;
 
 namespace HomeManager.Domain.Services.Media
 {
-    public interface IMediaService
+    public interface IMovieService
     {
         // Movie Methods
         PaginatedList<MovieGenre> GetMovieGenres(int pageIndex, int pageSize);
@@ -27,7 +27,10 @@ namespace HomeManager.Domain.Services.Media
         PaginatedList<Movie> SearchMovies(int pageIndex, int pageSize, string searchTerm);
         PaginatedList<Movie> SearchMovies(int pageIndex, int pageSize, string searchTerm, Guid ownerKey);
         Movie GetMovie(Guid key);
+        Movie GetMovie(string thumbprint);
         OperationResult<Movie> AddMovie(Movie movie);
         Movie UpdateMovie(Movie movie);
+
+        OperationResult<UserMovie> AddUserMovie(UserMovie userMovie);
     }
 }

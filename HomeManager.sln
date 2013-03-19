@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManager.Domain", "src\H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManager.Web", "src\HomeManager.Web\HomeManager.Web.csproj", "{E6B56867-22A9-461E-BB84-EA84C5D0F161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManager.Model", "HomeManager.Model\HomeManager.Model.csproj", "{97E436FA-FDFB-4947-9266-FC55B2D9EA36}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{9A92452F-7063-4AF1-94F5-8D41E3C26327}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManager.Model", "src\HomeManager.Model\HomeManager.Model.csproj", "{97E436FA-FDFB-4947-9266-FC55B2D9EA36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManager.MediaImporter", "src\HomeManager.MediaImporter\HomeManager.MediaImporter.csproj", "{C22398CD-503C-407D-950E-84013808BAE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,10 @@ Global
 		{97E436FA-FDFB-4947-9266-FC55B2D9EA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97E436FA-FDFB-4947-9266-FC55B2D9EA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97E436FA-FDFB-4947-9266-FC55B2D9EA36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22398CD-503C-407D-950E-84013808BAE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22398CD-503C-407D-950E-84013808BAE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22398CD-503C-407D-950E-84013808BAE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22398CD-503C-407D-950E-84013808BAE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +45,6 @@ Global
 		{C4BD5919-ECDE-4A45-BE9A-F3CB4D30BE09} = {0CCC408B-762B-4FE8-A9F7-84FA7BB95DA1}
 		{97E436FA-FDFB-4947-9266-FC55B2D9EA36} = {0CCC408B-762B-4FE8-A9F7-84FA7BB95DA1}
 		{E6B56867-22A9-461E-BB84-EA84C5D0F161} = {4A7C41EA-8F36-4C14-9AC7-C84332982905}
+		{C22398CD-503C-407D-950E-84013808BAE8} = {9A92452F-7063-4AF1-94F5-8D41E3C26327}
 	EndGlobalSection
 EndGlobal

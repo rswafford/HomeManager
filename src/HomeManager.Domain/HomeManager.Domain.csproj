@@ -64,6 +64,11 @@
     <Compile Include="Entities\Media\MovieFormat.cs" />
     <Compile Include="Entities\Media\MovieGenre.cs" />
     <Compile Include="Entities\Media\MovieInGenre.cs" />
+    <Compile Include="Entities\Media\TvEpisode.cs" />
+    <Compile Include="Entities\Media\TvShow.cs" />
+    <Compile Include="Entities\Media\UserImage.cs" />
+    <Compile Include="Entities\Media\UserMovie.cs" />
+    <Compile Include="Entities\Media\UserTvEpisode.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserInRole.cs" />
@@ -124,12 +129,22 @@
     <Compile Include="Migrations\201302032024405_RemoveUserAutoGenKeys.Designer.cs">
       <DependentUpon>201302032024405_RemoveUserAutoGenKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201303171648594_UserSpecificMediaItems.cs" />
+    <Compile Include="Migrations\201303171648594_UserSpecificMediaItems.Designer.cs">
+      <DependentUpon>201303171648594_UserSpecificMediaItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201303181509281_FixKeyNames.cs" />
+    <Compile Include="Migrations\201303181509281_FixKeyNames.Designer.cs">
+      <DependentUpon>201303181509281_FixKeyNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Crypto\CryptoService.cs" />
     <Compile Include="Services\Crypto\ICryptoService.cs" />
-    <Compile Include="Services\Media\IMediaService.cs" />
-    <Compile Include="Services\Media\MediaService.cs" />
+    <Compile Include="Services\Media\IMovieService.cs" />
+    <Compile Include="Services\Media\ITvService.cs" />
+    <Compile Include="Services\Media\MovieService.cs" />
+    <Compile Include="Services\Media\TvService.cs" />
     <Compile Include="Services\Membership\IMembershipService.cs" />
     <Compile Include="Services\Membership\MembershipService.cs" />
     <Compile Include="Services\OperationResult.cs" />
@@ -181,6 +196,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201302032024405_RemoveUserAutoGenKeys.resx">
       <DependentUpon>201302032024405_RemoveUserAutoGenKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201303171648594_UserSpecificMediaItems.resx">
+      <DependentUpon>201303171648594_UserSpecificMediaItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201303181509281_FixKeyNames.resx">
+      <DependentUpon>201303181509281_FixKeyNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
