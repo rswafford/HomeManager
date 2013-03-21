@@ -67,6 +67,11 @@ namespace HomeManager.Web.Controllers
             userEpisode.OwnerKey = user.User.Key;
 
             var createdUserEpisode = _tvService.AddUserTvEpisode(userEpisode);
+            if(!createdUserEpisode.IsSuccess)
+            {
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            }
+
             var response = Request.CreateResponse(HttpStatusCode.Created, Mapper.Map<TvEpisodeDto>(createdUserEpisode.Entity));
 
             return response;
