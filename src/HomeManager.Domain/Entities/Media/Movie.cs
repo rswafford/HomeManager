@@ -13,8 +13,8 @@ namespace HomeManager.Domain.Entities.Media
         public string ImdbId { get; set; }
         [MaxLength(10)]
         public string MovieDbId { get; set; }
-        [MaxLength(4)]
-        public string Year { get; set; }
+
+        public int? Year { get; set; }
 
         public DateTime? ReleaseDate { get; set; }
         public decimal Rating { get; set; }

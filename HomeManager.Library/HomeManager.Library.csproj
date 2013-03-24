@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C22398CD-503C-407D-950E-84013808BAE8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{2E6D7C7C-4281-4DBB-9AF9-3D2DED8FE8D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeManager.MediaImporter</RootNamespace>
-    <AssemblyName>HomeManager.MediaImporter</AssemblyName>
+    <RootNamespace>HomeManager.Library</RootNamespace>
+    <AssemblyName>HomeManager.Library</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,19 +33,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,29 +49,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpRequestMessageHelper.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\ConstSettings\DefaultRegex.cs" />
+    <Compile Include="Settings\ConstSettings\FileSystemPaths.cs" />
+    <Compile Include="Settings\Get.cs" />
+    <Compile Include="Settings\UserSettings\Keywords.cs" />
+    <Compile Include="Tools\Clean\RemovePrefix.cs" />
+    <Compile Include="Tools\Clean\Text.cs" />
+    <Compile Include="Tools\Enums\AddFolderType.cs" />
+    <Compile Include="Tools\Enums\MediaPathFileType.cs" />
+    <Compile Include="Tools\Extensions\Extensions.cs" />
+    <Compile Include="Tools\FileUtil\FileHash.cs" />
+    <Compile Include="Tools\Importing\DetectType.cs" />
+    <Compile Include="Tools\Importing\MovieNaming.cs" />
+    <Compile Include="Tools\Importing\TvNaming.cs" />
+    <Compile Include="Tools\Text\IO.cs" />
+    <Compile Include="Tools\YRegex.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\HomeManager.Library\HomeManager.Library.csproj">
-      <Project>{2E6D7C7C-4281-4DBB-9AF9-3D2DED8FE8D1}</Project>
-      <Name>HomeManager.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HomeManager.Model\HomeManager.Model.csproj">
-      <Project>{97e436fa-fdfb-4947-9266-fc55b2d9ea36}</Project>
-      <Name>HomeManager.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

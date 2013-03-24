@@ -19,9 +19,7 @@ namespace HomeManager.Model.RequestModels
 
         [MaxLength(300)]
         public string Title { get; set; }
-
-        [MaxLength(4)]
-        public string Year { get; set; }
+        public int? Year { get; set; }
 
         public string Format { get; set; }
         public string FileHash { get; set; }
