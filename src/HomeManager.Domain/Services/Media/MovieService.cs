@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HomeManager.Domain.Entities.Core;
 using HomeManager.Domain.Entities.Extensions;
@@ -160,9 +161,29 @@ namespace HomeManager.Domain.Services.Media
             return movie;
         }
 
+        public int CountUserMovies(Guid userKey)
+        {
+            return _userMovieRepository.FindBy(m => m.OwnerKey == userKey).Count();
+        }
+
+        public UserMovie GetUserMovie(Guid movieKey, Guid userKey)
+        {
+            var userMovie = _userMovieRepository.FindBy(m => m.OwnerKey == userKey && m.MovieKey == movieKey);
+
+            if (userMovie.Any())
+                return userMovie.First();
+
+            return null;
+        }
+
+        public IEnumerable<UserMovie> GetUserMovies(Guid userKey)
+        {
+            return _userMovieRepository.FindBy(m => m.OwnerKey == userKey);
+        }
+
         public OperationResult<UserMovie> AddUserMovie(UserMovie userMovie)
         {
-            if(_userMovieRepository.FindBy(m => m.OwnerKey == userMovie.OwnerKey && m.MovieKey == userMovie.MovieKey).Any())
+            if(GetUserMovie(userMovie.MovieKey, userMovie.OwnerKey) != null)
             {
                 return new OperationResult<UserMovie>(false);
             }
@@ -172,6 +193,14 @@ namespace HomeManager.Domain.Services.Media
             _userMovieRepository.Save();
 
             return new OperationResult<UserMovie>(true) {Entity = userMovie};
+        }
+
+        public UserMovie UpdateUserMovie(UserMovie userMovie)
+        {
+            _userMovieRepository.Edit(userMovie);
+            _userMovieRepository.Save();
+
+            return userMovie;
         }
     }
 }

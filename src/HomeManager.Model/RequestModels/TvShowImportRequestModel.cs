@@ -23,5 +23,7 @@ namespace HomeManager.Model.RequestModels
 
         public string Format { get; set; }
         public string FileHash { get; set; }
+
+        public bool UpdateExisting { get; set; }
     }
 }

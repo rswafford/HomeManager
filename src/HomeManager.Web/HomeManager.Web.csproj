@@ -202,6 +202,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MovieImportController.cs" />
     <Compile Include="Controllers\TvImportController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -345,6 +346,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="_MSBuild\NuGetPackageAndPublish.targets" />
+    <Content Include="Views\Media\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

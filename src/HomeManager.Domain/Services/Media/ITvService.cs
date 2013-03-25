@@ -11,14 +11,21 @@ namespace HomeManager.Domain.Services.Media
     {
         TvEpisode GetTvEpisode(Guid key);
         TvEpisode GetTvEpisode(string thumbprint, int? season, int? episode);
+        IEnumerable<TvEpisode> GetShowEpisodes(Guid showKey);
+            
         OperationResult<TvEpisode> AddTvEpisode(TvEpisode episode);
         TvEpisode UpdateTvEpisode(TvEpisode episode);
 
+        int CountUserTvEpisodes(Guid userKey);
+        UserTvEpisode GetUserTvEpisode(Guid tvEpisodeKey, Guid userKey);
+        IEnumerable<UserTvEpisode> GetUserTvEpisodes(Guid userKey);
         OperationResult<UserTvEpisode> AddUserTvEpisode(UserTvEpisode userEpisode);
+        UserTvEpisode UpdateUserTvEpisode(UserTvEpisode userEpisode);
 
         TvShow GetTvShow(Guid key);
         TvShow GetTvShow(string showName);
         OperationResult<TvShow> AddShow(TvShow show);
         TvShow UpdateTvShow(TvShow show);
+        int CountUserTvShows(Guid key);
     }
 }

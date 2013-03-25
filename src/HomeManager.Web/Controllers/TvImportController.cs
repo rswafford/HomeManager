@@ -66,33 +66,49 @@ namespace HomeManager.Web.Controllers
                 }
             }
 
-            var userEpisode = Mapper.Map<UserTvEpisode>(requestModel);
-            userEpisode.TvEpisodeKey = dbEp.Key;
-            userEpisode.OwnerKey = user.User.Key;
-            
-            var createdUserEpisode = _tvService.AddUserTvEpisode(userEpisode);
-            if(!createdUserEpisode.IsSuccess)
+            var existingUserEpisode = _tvService.GetUserTvEpisode(dbEp.Key, user.User.Key);
+
+            if (existingUserEpisode == null)
             {
-                Log.ErrorFormat("Could not add episode {0} to user {1}.  Episode ID: {2}", string.Format("{0}.S{1}E{2}", requestModel.SeriesName, requestModel.Season, requestModel.Episode), user.User.Key, userEpisode.TvEpisodeKey);
+                var userEpisode = Mapper.Map<UserTvEpisode>(requestModel);
+                userEpisode.TvEpisodeKey = dbEp.Key;
+                userEpisode.OwnerKey = user.User.Key;
 
-                Log.ErrorFormat("Imported File Path: {0}", requestModel.FullPath);
-                Log.ErrorFormat("Imported File Hash: {0}", requestModel.FileHash);
-
-                var existingUserMovie = dbEp.UserTvEpisodes.FirstOrDefault(x => x.OwnerKey == user.User.Key);
-                if (existingUserMovie != null)
+                var createdUserEpisode = _tvService.AddUserTvEpisode(userEpisode);
+                if (!createdUserEpisode.IsSuccess)
                 {
-                    Log.ErrorFormat("Existing File Path: {0}", existingUserMovie.FullPath);
-                    Log.ErrorFormat("Existing File Hash: {0}", dbEp.FileHash);
-                }
-                else
-                {
-                    Log.Error("No existing episode. BOGUS ERROR!!!!");
+                    Log.ErrorFormat("Could not add episode {0} to user {1}.  Episode ID: {2}",
+                                    string.Format("{0}.S{1}E{2}", requestModel.SeriesName, requestModel.Season,
+                                                  requestModel.Episode), user.User.Key, userEpisode.TvEpisodeKey);
+
+                    Log.ErrorFormat("Imported File Path: {0}", requestModel.FullPath);
+                    Log.ErrorFormat("Imported File Hash: {0}", requestModel.FileHash);
+
+                    var existingUserMovie = dbEp.UserTvEpisodes.FirstOrDefault(x => x.OwnerKey == user.User.Key);
+                    if (existingUserMovie != null)
+                    {
+                        Log.ErrorFormat("Existing File Path: {0}", existingUserMovie.FullPath);
+                        Log.ErrorFormat("Existing File Hash: {0}", dbEp.FileHash);
+                    }
+                    else
+                    {
+                        Log.Error("No existing episode. BOGUS ERROR!!!!");
+                    }
+
+                    return new HttpResponseMessage(HttpStatusCode.Conflict);
                 }
 
-                return new HttpResponseMessage(HttpStatusCode.Conflict);
+                existingUserEpisode = createdUserEpisode.Entity;
+            }
+            else if(requestModel.UpdateExisting)
+            {
+                existingUserEpisode.Filename = requestModel.Filename;
+                existingUserEpisode.FullPath = requestModel.FullPath;
+
+                _tvService.UpdateUserTvEpisode(existingUserEpisode);
             }
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, Mapper.Map<TvEpisodeDto>(createdUserEpisode.Entity));
+            var response = Request.CreateResponse(HttpStatusCode.Created, Mapper.Map<TvEpisodeDto>(existingUserEpisode));
 
             return response;
         }

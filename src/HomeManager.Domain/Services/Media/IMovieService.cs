@@ -31,6 +31,10 @@ namespace HomeManager.Domain.Services.Media
         OperationResult<Movie> AddMovie(Movie movie);
         Movie UpdateMovie(Movie movie);
 
+        int CountUserMovies(Guid userKey);
+        UserMovie GetUserMovie(Guid movieKey, Guid userKey);
+        IEnumerable<UserMovie> GetUserMovies(Guid userKey);
         OperationResult<UserMovie> AddUserMovie(UserMovie userMovie);
+        UserMovie UpdateUserMovie(UserMovie userMovie);
     }
 }

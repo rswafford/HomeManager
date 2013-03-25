@@ -45,6 +45,16 @@ namespace HomeManager.Domain.Services.Media
             return tvEp.First();
         }
 
+        public IEnumerable<TvEpisode> GetShowEpisodes(Guid showKey)
+        {
+            return _tvEpisodeRepository.FindBy(t => t.TvShowKey == showKey);
+        }
+
+        public IEnumerable<UserTvEpisode> GetUserTvEpisodes(Guid userKey)
+        {
+            return _userTvEpisodeRepository.FindBy(t => t.OwnerKey == userKey);
+        }
+
         public OperationResult<TvEpisode> AddTvEpisode(TvEpisode episode)
         {
             if (_tvEpisodeRepository.FindBy(m => m.FileHash == episode.FileHash && m.Episode == episode.Episode && m.Season == episode.Season).Any())
@@ -67,9 +77,24 @@ namespace HomeManager.Domain.Services.Media
             return episode;
         }
 
+        public int CountUserTvEpisodes(Guid userKey)
+        {
+            return _userTvEpisodeRepository.FindBy(t => t.OwnerKey == userKey).Count();
+        }
+
+        public UserTvEpisode GetUserTvEpisode(Guid tvEpisodeKey, Guid userKey)
+        {
+            var userEpisode =
+                _userTvEpisodeRepository.FindBy(utv => utv.OwnerKey == userKey && utv.TvEpisodeKey == tvEpisodeKey);
+            if (userEpisode.Any())
+                return userEpisode.First();
+
+            return null;
+        }
+
         public OperationResult<UserTvEpisode> AddUserTvEpisode(UserTvEpisode userEpisode)
         {
-            if(_userTvEpisodeRepository.FindBy(utv => utv.OwnerKey == userEpisode.OwnerKey && utv.TvEpisodeKey == userEpisode.TvEpisodeKey).Any())
+            if(GetUserTvEpisode(userEpisode.TvEpisodeKey, userEpisode.OwnerKey) != null)
             {
                 return new OperationResult<UserTvEpisode>(false);
             }
@@ -79,6 +104,14 @@ namespace HomeManager.Domain.Services.Media
             _userTvEpisodeRepository.Save();
 
             return new OperationResult<UserTvEpisode>(true) {Entity = userEpisode};
+        }
+
+        public UserTvEpisode UpdateUserTvEpisode(UserTvEpisode userEpisode)
+        {
+            _userTvEpisodeRepository.Edit(userEpisode);
+            _userTvEpisodeRepository.Save();
+
+            return userEpisode;
         }
 
         public TvShow GetTvShow(Guid key)
@@ -117,6 +150,15 @@ namespace HomeManager.Domain.Services.Media
             _tvShowRepository.Save();
 
             return show;
+        }
+
+        public int CountUserTvShows(Guid userKey)
+        {
+            return
+                _userTvEpisodeRepository.FindBy(t => t.OwnerKey == userKey)
+                                        .Select(t => t.TvEpisode.TvShowKey)
+                                        .Distinct()
+                                        .Count();
         }
     }
 }
