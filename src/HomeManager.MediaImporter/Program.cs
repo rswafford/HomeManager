@@ -47,6 +47,8 @@ namespace HomeManager.MediaImporter
             _username = ConfigurationManager.AppSettings["username"];
             _password = ConfigurationManager.AppSettings["password"];
 
+            System.Net.ServicePointManager.ServerCertificateValidationCallback =
+                ((sender, certificate, chain, sslPolicyErrors) => true);
             /*
              * foreach movie directory
              *  get files

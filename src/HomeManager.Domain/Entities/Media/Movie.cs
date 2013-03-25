@@ -21,6 +21,10 @@ namespace HomeManager.Domain.Entities.Media
 
         public string Outline { get; set; }
         public string Plot { get; set; }
+        public string Tagline { get; set; }
+
+        public int? Runtime { get; set; }
+        public int? Top250 { get; set; }
 
         public Guid? FormatKey { get; set; }
         public MovieFormat Format { get; set; }

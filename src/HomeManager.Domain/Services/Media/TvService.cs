@@ -32,9 +32,13 @@ namespace HomeManager.Domain.Services.Media
             return tvEp;
         }
 
-        public TvEpisode GetTvEpisode(string thumbprint)
+        public TvEpisode GetTvEpisode(string thumbprint, int? season, int? episode)
         {
-            var tvEp = _tvEpisodeRepository.FindBy(t => t.FileHash == thumbprint);
+            var tvEp =
+                _tvEpisodeRepository.FindBy(
+                    t =>
+                    t.FileHash == thumbprint && (!episode.HasValue || t.Episode == episode.Value) &&
+                    (!season.HasValue || t.Season == season.Value));
             if (!tvEp.Any())
                 return null;
 
@@ -43,7 +47,7 @@ namespace HomeManager.Domain.Services.Media
 
         public OperationResult<TvEpisode> AddTvEpisode(TvEpisode episode)
         {
-            if (_tvEpisodeRepository.FindBy(m => m.FileHash == episode.FileHash).Any())
+            if (_tvEpisodeRepository.FindBy(m => m.FileHash == episode.FileHash && m.Episode == episode.Episode && m.Season == episode.Season).Any())
             {
                 return new OperationResult<TvEpisode>(false);
             }

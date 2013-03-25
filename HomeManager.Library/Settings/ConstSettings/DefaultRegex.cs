@@ -26,6 +26,9 @@ namespace HomeManager.Library.Settings.ConstSettings
         /// <summary>
         /// Used to extract tv episodes.
         /// </summary>
-        public const string TvEpisode = @"(?!x264)([EXex]\s?([0-9]+)|(([0-9]{4}-[0-9]{2}(-[0-9]{2})?)|([0-9]{2}-[0-9]{2}-[0-9]{4})|(?!720p)((?<season>[0-9]+)(-?[0-9]{2,})+(?![0-9]))))(?<!x264)";
+        public const string TvEpisode = @"(?!x264)([EXex]([0-9]+))(?<!x264)";
+        //public const string TvEpisode = @"(?!x264)([EXex]\s?([0-9]+)|(([0-9]{2}-[0-9]{2}(-[0-9]{2})?)|([0-9]{2}-[0-9]{2}-[0-9]{2})|(?!720p)((?<season>[0-9]+)(-?[0-9]{2,})+(?![0-9]))))(?<!x264)";
+
+        public const string NewTvEpisode = @"(.*?)\.s(\d+)((?:e\d+)+)";
     }
 }

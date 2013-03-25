@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -14,6 +15,7 @@ using HomeManager.Domain.Entities.Core;
 using HomeManager.Model.RequestModels;
 using HomeManager.Web.App_Start;
 using HomeManager.Web.DependencyResolution;
+using log4net.Config;
 
 namespace HomeManager.Web
 {
@@ -26,6 +28,9 @@ namespace HomeManager.Web
         {
             Assembly.Load("HomeManager.Domain");
             Assembly.Load("HomeManager.Model");
+
+            var logFile = new FileInfo(Server.MapPath("log4net.config"));
+            XmlConfigurator.Configure(logFile);
 
             var config = GlobalConfiguration.Configuration;
 

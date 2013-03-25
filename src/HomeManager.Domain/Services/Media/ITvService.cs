@@ -10,7 +10,7 @@ namespace HomeManager.Domain.Services.Media
     public interface ITvService
     {
         TvEpisode GetTvEpisode(Guid key);
-        TvEpisode GetTvEpisode(string thumbprint);
+        TvEpisode GetTvEpisode(string thumbprint, int? season, int? episode);
         OperationResult<TvEpisode> AddTvEpisode(TvEpisode episode);
         TvEpisode UpdateTvEpisode(TvEpisode episode);
 

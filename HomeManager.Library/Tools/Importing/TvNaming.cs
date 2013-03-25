@@ -63,6 +63,9 @@ namespace HomeManager.Library.Tools.Importing
                 finalSeriesName = rawSeriesName;
             }
 
+            finalSeriesName = finalSeriesName.Replace(new string[] { ".", "_", "-" }, " ").Trim();
+            finalSeriesName = Regex.Replace(finalSeriesName, @"\s{2,}", " ");
+
             return finalSeriesName;
         }
 
@@ -85,6 +88,8 @@ namespace HomeManager.Library.Tools.Importing
 
             string series = Path.GetFileNameWithoutExtension(filePath);
             var episodeMatch = Regex.Matches(series, DefaultRegex.TvEpisode, RegexOptions.IgnoreCase);
+            //var episodeMatch = Regex.Matches(series, DefaultRegex.NewTvEpisode, RegexOptions.IgnoreCase);
+
             if (episodeMatch.Count > 0)
             {
                 if (episodeMatch.Count > 1)
@@ -95,8 +100,8 @@ namespace HomeManager.Library.Tools.Importing
                         episodeNumbers.Add(match.Value.GetNumber());
                     }
 
-                    Log.DebugFormat("Extracted episode numbers ({0}): {1}", episodeNumbers.Count,
-                                    string.Join(", ", episodeNumbers));
+                    Log.DebugFormat("Extracted episode numbers ({0}): {1} [File: {2}]", episodeNumbers.Count,
+                                    string.Join(", ", episodeNumbers), filePath);
                 }
                 else
                 {

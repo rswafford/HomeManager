@@ -101,7 +101,7 @@ namespace HomeManager.Library.Settings.UserSettings
         /// </summary>
         private void GenerateCodecs()
         {
-            this.Codecs = new List<string> { "xvid", "divx", "h264", "mp3", "ogg", "x264" };
+            this.Codecs = new List<string> { "xvid", "divx", "h264", "mp3", "ogg", "x264", "ac3", "aac", "dts" };
         }
 
         /// <summary>
@@ -119,13 +119,21 @@ namespace HomeManager.Library.Settings.UserSettings
                     "iDHD",
                     "PROPER",
                     "REPACK",
+                    "EXTENDED",
                     "DSR",
                     "STV",
                     "UNRATED",
                     "RERIP",
                     "Special Edition",
                     "Extended Edition",
-                    "Sp Edition"
+                    "Sp Edition",
+                    "YIFY",
+                    "HDChina",
+                    "ViSiON",
+                    "GAZ",
+                    "DVDivX",
+                    "dts-wiki",
+                    "dts-HDL"
                 };
         }
 
@@ -149,7 +157,7 @@ namespace HomeManager.Library.Settings.UserSettings
             this.Sources["BluRay"].AddRange(new[] { "BLU-RAY" });
 
             this.Sources.Add("BDRip", new List<string>());
-            this.Sources["BDRip"].AddRange(new[] { "BDRIP", "BLURAYRIP" });
+            this.Sources["BDRip"].AddRange(new[] { "BDRIP", "BLURAYRIP", "BD5", "BD9" });
 
             this.Sources.Add("CAM", new List<string>());
             this.Sources.Add("DSRip", new List<string>());
@@ -165,10 +173,12 @@ namespace HomeManager.Library.Settings.UserSettings
             this.Sources["DVDRip"].AddRange(new[] { "DVDR" });
 
             this.Sources.Add("DVDSCR", new List<string>());
+            this.Sources["DVDSCR"].AddRange(new[] { "SCR" });
 
             this.Sources.Add("HD2DVD", new List<string>());
 
             this.Sources.Add("HDTV", new List<string>());
+            this.Sources["HDTV"].AddRange(new[] { "HDTVRip" });
 
             this.Sources.Add("HRHDTV", new List<string>());
 

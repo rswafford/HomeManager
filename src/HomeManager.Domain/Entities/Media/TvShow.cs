@@ -13,7 +13,17 @@ namespace HomeManager.Domain.Entities.Media
         [Key]
         public Guid Key { get; set; }
 
+        [MaxLength(10)]
+        public string ImdbId { get; set; }
+        [MaxLength(10)]
+        public string TvDbId { get; set; }
+        [MaxLength(20)]
+        public string Zap2ItId { get; set; }
+
         public string ShowName { get; set; }
+        public string Network { get; set; }
+        public string Overview { get; set; }
+        public int? Runtime { get; set; }
 
         public DateTime? OriginalAirDate { get; set; }
         public virtual ICollection<TvEpisode> Episodes { get; set; }
