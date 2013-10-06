@@ -11,7 +11,19 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
-    </head>
+    	<!--This bundle was moved by the Kendo UI VS Extensions for compatibility reasons-->
+	@Scripts.Render("~/bundles/jquery")
+	<!--This CSS entry was added by the Kendo UI VS Extensions for compatibility reasons-->
+	<link href="@Url.Content("~/Content/kendo.compatibility.css")" rel="stylesheet" type="text/css" />
+	<link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+	<link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.dataviz.min.css" rel="stylesheet" type="text/css" />
+	<link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.metro.min.css" rel="stylesheet" type="text/css" />
+	<link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.dataviz.metro.min.css" rel="stylesheet" type="text/css" />
+	<script src="http://cdn.kendostatic.com/2013.2.918/js/jquery.min.js"></script>
+	<script src="http://cdn.kendostatic.com/2013.2.918/js/kendo.all.min.js"></script>
+	<script src="http://cdn.kendostatic.com/2013.2.918/js/kendo.aspnetmvc.min.js"></script>
+	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+</head>
     <body>
         <header>
             <div class="content-wrapper">
@@ -23,18 +35,31 @@
                         @Html.Partial("_LoginPartial")
                     </section>
                     <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Finance", "Index", "Finance")</li>
-                            <li>@Html.ActionLink("Kitchen", "Index", "Kitchen")</li>
-                            <li>@Html.ActionLink("Knowledge", "Index", "Knowledge")</li>
-                            <li>@Html.ActionLink("Media", "Index", "Media")</li>
-                            <li>@Html.ActionLink("Medical", "Index", "Medical")</li>
-                            <li>@Html.ActionLink("Trips", "Index", "TripPlanning")</li>
-                            <li>@Html.ActionLink("Vehicles", "Index", "Vehicle")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
+                        @{
+                            Html.Kendo().Menu()
+                                .Name("navmenu")
+                                .Items(items =>
+                                {
+                                    items.Add().Text("Home").Action("Index", "Home");
+                                    if (Request.IsAuthenticated)
+                                     {
+
+                                         items.Add().Text("Finance").Action("Index", "Finance").Enabled(false);
+                                         items.Add().Text("Kitchen").Action("Index", "Kitchen").Enabled(false);
+                                         items.Add().Text("Knowledge").Action("Index", "Knowledge").Enabled(false);
+                                         items.Add().Text("Media").Action("Index", "Media").Items(children =>
+                                         {
+                                             children.Add().Text("Movies").Action("Movies", "Media");
+                                             children.Add().Text("TV Shows").Action("TVShows", "Media");
+                                         });
+                                         items.Add().Text("Medical").Action("Index", "Medical").Enabled(false);
+                                         items.Add().Text("Trips").Action("Index", "TripPlanning").Enabled(false);
+                                         items.Add().Text("Vehicles").Action("Index", "Vehicle").Enabled(false);
+                                     }
+                                    items.Add().Text("About").Action("About", "Home");
+                                    items.Add().Text("Contact").Action("Contact", "Home");
+                                }).Render();
+                        }
                     </nav>
                 </div>
             </div>
@@ -53,7 +78,7 @@
             </div>
         </footer>
 
-        @Scripts.Render("~/bundles/jquery")
+        
         @RenderSection("scripts", required: false)
     </body>
 </html>
