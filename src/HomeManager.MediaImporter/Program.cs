@@ -84,6 +84,7 @@ namespace HomeManager.MediaImporter
 
         private static TvShowImportRequestModel BuildTvImportModel(string filename, int episodeNumber)
         {
+            FileInfo fi = new FileInfo(filename);
             TvShowImportRequestModel model = new TvShowImportRequestModel
                 {
                     Episode = episodeNumber,
@@ -92,7 +93,8 @@ namespace HomeManager.MediaImporter
                     Filename = Path.GetFileName(filename),
                     FullPath = filename,
                     Season = TvNaming.ExtractSeasonNumber(filename),
-                    SeriesName = TvNaming.ExtractSeriesName(filename)
+                    SeriesName = TvNaming.ExtractSeriesName(filename),
+                    FileSize = fi.Length
                 };
 
             return model;
@@ -100,6 +102,7 @@ namespace HomeManager.MediaImporter
 
         private static MovieImportRequestModel BuildMovieImportModel(string filename)
         {
+            FileInfo fi = new FileInfo(filename);
             MovieImportRequestModel model = new MovieImportRequestModel
                 {
                     FileHash = FileHash.ComputeMovieHash(filename),
@@ -107,7 +110,8 @@ namespace HomeManager.MediaImporter
                     Format = DetectType.FindVideoSource(filename),
                     FullPath = filename,
                     Title = MovieNaming.GetMovieName(filename, AddFolderType.NameByFile),
-                    Year = MovieNaming.GetMovieYear(Path.GetFileName(filename))
+                    Year = MovieNaming.GetMovieYear(Path.GetFileName(filename)),
+                    FileSize = fi.Length
                 };
 
             return model;

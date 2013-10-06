@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace HomeManager.Domain.Entities.Media
         [Required]
         [MaxLength(8000)]
         public string FullPath { get; set; }
+        public long FileSize { get; set; }
 
         [MaxLength(30)]
         public string ImportedFormatString { get; set; }

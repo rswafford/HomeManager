@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,7 @@ namespace HomeManager.Domain.Entities.Media
 
         [MaxLength(30)]
         public string ImportedFormatString { get; set; }
+        public long FileSize { get; set; }
 
         public Movie Movie { get; set; }
         public User Owner { get; set; }

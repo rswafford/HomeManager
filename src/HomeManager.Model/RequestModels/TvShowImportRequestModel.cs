@@ -16,6 +16,7 @@ namespace HomeManager.Model.RequestModels
         [Required]
         [MaxLength(8000)]
         public string FullPath { get; set; }
+        public long FileSize { get; set; }
 
         public string SeriesName { get; set; }
         public int Season { get; set; }

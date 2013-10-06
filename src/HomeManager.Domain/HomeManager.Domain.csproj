@@ -147,6 +147,10 @@
     <Compile Include="Migrations\201303241649041_ExpandedMediaAttributes.Designer.cs">
       <DependentUpon>201303241649041_ExpandedMediaAttributes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310061612366_AddFileSize.cs" />
+    <Compile Include="Migrations\201310061612366_AddFileSize.Designer.cs">
+      <DependentUpon>201310061612366_AddFileSize.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Crypto\CryptoService.cs" />
@@ -218,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201303241649041_ExpandedMediaAttributes.resx">
       <DependentUpon>201303241649041_ExpandedMediaAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310061612366_AddFileSize.resx">
+      <DependentUpon>201310061612366_AddFileSize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
