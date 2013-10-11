@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Dtos\TvEpisodeDto.cs" />
+    <Compile Include="Dtos\TvShowDto.cs" />
     <Compile Include="Profiles\MovieProfile.cs" />
     <Compile Include="Profiles\TvProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

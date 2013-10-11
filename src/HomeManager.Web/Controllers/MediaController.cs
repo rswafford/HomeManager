@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using HomeManager.Domain.Entities.Core;
 using HomeManager.Domain.Services.Media;
 using HomeManager.Domain.Services.Membership;
+using HomeManager.Model.Dtos;
 using HomeManager.Model.Web.Media;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace HomeManager.Web.Controllers
 {
@@ -37,5 +43,37 @@ namespace HomeManager.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Movies()
+        {
+            return View();
+        }
+
+        public ActionResult TvShows()
+        {
+            return View();
+        }
+
+        public ActionResult Movies_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var user = _membershipService.GetUser(User.Identity.Name);
+            var movies = _movieService.GetUserMovies(user.User.Key);
+
+            return Json(Mapper.Map<IEnumerable<MovieDto>>(movies).ToDataSourceResult(request));
+        }
+
+        public ActionResult TvShows_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            DataSourceResult result = new DataSourceResult();
+            
+            var user = _membershipService.GetUser(User.Identity.Name);
+            var shows = _tvService.GetUserTvShows(user.User.Key);
+            var showModels = Mapper.Map<IEnumerable<TvShowDto>>(shows);
+            result = showModels.ToDataSourceResult(request);
+            foreach (var d in result.Data)
+            {
+                ((TvShowDto) d).EpisodeCount = _tvService.CountTvShowEpisodes(((TvShowDto) d).Key, user.User.Key);
+            }
+            return Json(result);
+        }
     }
 }

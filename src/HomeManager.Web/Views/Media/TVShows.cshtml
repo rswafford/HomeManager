@@ -1,0 +1,57 @@
+﻿@using HomeManager.Model.Dtos
+@{
+    ViewBag.Title = "TVShows";
+}
+
+<h2>TVShows</h2>
+<script type="text/x-kendo-tmpl" id="template">
+        <div class="show">
+            <b>Title:</b> <span>#= tvShowLink(data) #</span></a><br />
+            <b>Episodes:</b> <span>#:EpisodeCount#</span>
+        </div>
+</script>
+
+<script>
+    function tvShowLink(show) {
+        var action = '@Url.Action("TvShow", "Media")';
+
+        var html = kendo.format("<a href='{0}/{1}'>{2}</a>", action, show.Key, show.ShowName);
+
+        return html;
+    }
+</script>
+
+<div>
+    @(Html.Kendo().ListView<TvShowDto>()
+          .Name("series-list")
+          .TagName("div")
+          .ClientTemplateId("template")
+          .DataSource(dataSource =>
+              {
+                  dataSource.Model(model => model.Id("Key"));
+                  dataSource.Sort(model => model.Add(m => m.ShowName).Ascending());
+                  dataSource.Read(read => read.Action("TvShows_Read", "Media"));
+                  dataSource.PageSize(15);
+              })
+          .Pageable())
+</div>
+
+<style scoped>
+    #series-list {
+        padding: 6px;
+        margin-bottom: -1px;
+        min-width: 450px;
+        
+        min-height: 500px;
+    }
+
+    .show {
+        float: left;
+        position: relative;
+        width: 315px;
+        height: 100px;
+        margin: 0;
+        padding: 0;
+    }
+
+</style>

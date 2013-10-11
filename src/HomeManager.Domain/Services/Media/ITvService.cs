@@ -27,5 +27,7 @@ namespace HomeManager.Domain.Services.Media
         OperationResult<TvShow> AddShow(TvShow show);
         TvShow UpdateTvShow(TvShow show);
         int CountUserTvShows(Guid key);
+        IEnumerable<TvShow> GetUserTvShows(Guid userKey);
+        int CountTvShowEpisodes(Guid show, Guid user);
     }
 }

@@ -29,7 +29,8 @@ namespace HomeManager.Model.Profiles
                 .ForMember(d => d.Outline, o => o.MapFrom(s => s.Movie.Outline))
                 .ForMember(d => d.Plot, o => o.MapFrom(s => s.Movie.Plot))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Movie.Title))
-                .ForMember(d => d.ImdbId, o=> o.MapFrom(s => s.Movie.ImdbId));
+                .ForMember(d => d.ImdbId, o=> o.MapFrom(s => s.Movie.ImdbId))
+                .ForMember(d => d.Year, o => o.MapFrom(s => s.Movie.Year));
 
             Mapper.CreateMap<MovieImportRequestModel, Movie>()
                 .ForMember(dest => dest.Format, opts => opts.Ignore());

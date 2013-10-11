@@ -52,7 +52,7 @@ namespace HomeManager.Domain.Services.Media
 
         public IEnumerable<UserTvEpisode> GetUserTvEpisodes(Guid userKey)
         {
-            return _userTvEpisodeRepository.FindBy(t => t.OwnerKey == userKey);
+            return _userTvEpisodeRepository.AllIncluding(t => t.TvEpisode, t => t.TvEpisode.TvShow, t => t.Owner).Where(t => t.OwnerKey == userKey);
         }
 
         public OperationResult<TvEpisode> AddTvEpisode(TvEpisode episode)
@@ -159,6 +159,23 @@ namespace HomeManager.Domain.Services.Media
                                         .Select(t => t.TvEpisode.TvShowKey)
                                         .Distinct()
                                         .Count();
+        }
+
+        public IEnumerable<TvShow> GetUserTvShows(Guid userKey)
+        {
+            //var eps = GetUserTvEpisodes(userKey);
+
+            var ctx = new EntitiesContext();
+            var shows = (from s in ctx.UserTvEpisodes
+                         where s.OwnerKey == userKey
+                         select s.TvEpisode.TvShow);
+
+            return shows.Distinct();
+        }
+
+        public int CountTvShowEpisodes(Guid show, Guid user)
+        {
+            return _userTvEpisodeRepository.FindBy(t => t.OwnerKey == user && t.TvEpisode.TvShowKey == show).Count();
         }
     }
 }

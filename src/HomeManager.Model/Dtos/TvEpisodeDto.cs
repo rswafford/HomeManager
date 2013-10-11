@@ -10,6 +10,7 @@ namespace HomeManager.Model.Dtos
     {
         public Guid Key { get; set; }
         public Guid OwnerKey { get; set; }
+        public Guid TvShowKey { get; set; }
 
         public string Filename { get; set; }
         public string FullPath { get; set; }

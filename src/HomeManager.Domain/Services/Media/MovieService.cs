@@ -178,7 +178,7 @@ namespace HomeManager.Domain.Services.Media
 
         public IEnumerable<UserMovie> GetUserMovies(Guid userKey)
         {
-            return _userMovieRepository.FindBy(m => m.OwnerKey == userKey);
+            return _userMovieRepository.AllIncluding(m => m.Movie, m => m.Owner).Where(m => m.OwnerKey == userKey);
         }
 
         public OperationResult<UserMovie> AddUserMovie(UserMovie userMovie)

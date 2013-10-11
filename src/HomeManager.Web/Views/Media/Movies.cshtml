@@ -1,0 +1,53 @@
+﻿@using HomeManager.Model.Dtos
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<h2>Movies</h2>
+<script type="text/x-kendo-tmpl" id="template">
+        <div class="movie">
+            <b>Title:</b> <span>#:Title#</span><br />
+            <b>Year:</b> <span>#:Year#</span>
+        </div>
+</script>
+
+<div>
+    @(Html.Kendo().ListView<MovieDto>()
+          .Name("movie-list")
+          .TagName("div")
+          .ClientTemplateId("template")
+          .DataSource(dataSource =>
+              {
+                  dataSource.Model(model => model.Id("Key"));
+                  dataSource.Sort(model => model.Add(m => m.Title).Ascending());
+                  dataSource.Read(read => read.Action("Movies_Read", "Media"));
+                  dataSource.PageSize(15);
+              })
+          .Pageable())
+</div>
+
+<style scoped>
+    #movie-list {
+        padding: 6px;
+        margin-bottom: -1px;
+        min-width: 450px;
+        
+        min-height: 500px;
+    }
+
+    .movie {
+        float: left;
+        position: relative;
+        width: 315px;
+        height: 100px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .movie h5 {
+        margin: 0;
+        padding: 3px 5px 0 0;
+        
+    }
+</style>

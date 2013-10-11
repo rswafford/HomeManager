@@ -22,7 +22,10 @@ namespace HomeManager.Model.Profiles
             CreateMap<UserTvEpisode, TvEpisodeDto>()
                 .ForMember(d => d.Season, o => o.MapFrom(s => s.TvEpisode.Season))
                 .ForMember(d => d.Episode, o => o.MapFrom(s => s.TvEpisode.Episode))
+                .ForMember(d => d.TvShowKey, o => o.MapFrom(s => s.TvEpisode.TvShowKey))
                 .ForMember(d => d.ShowName, o => o.MapFrom(s => s.TvEpisode.TvShow.ShowName));
+
+            CreateMap<TvShow, TvShowDto>();
 
             CreateMap<TvShowImportRequestModel, TvEpisode>()
                 .ForMember(dest => dest.Format, opts => opts.Ignore());
